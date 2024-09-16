@@ -30,7 +30,7 @@ def generate(encoded_images):
     model = GenerativeModel(
         "gemini-1.5-flash-001",
     )
-    for encoded_image in encode_images:
+    for encoded_image in encoded_images:
         image1 = Part.from_data(
             mime_type="image/jpeg",
             data=base64.b64decode(encoded_image),
@@ -78,4 +78,6 @@ safety_settings = [
     ),
 ]
 
-generate()
+folder_path = "/home/amadgakkhar/code/MultimodalRAG_VertexAI/Images"
+encoded_images = encode_images(folder_path=folder_path)
+generate(encoded_images=encoded_images)
