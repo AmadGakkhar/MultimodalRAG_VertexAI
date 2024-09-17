@@ -67,7 +67,9 @@ def get_engine_numbers(model, images, image_names):
         response = model.generate_content([prompt, image])
         engineNumbers.append(response.text.strip())
         imageNames.append(image_name)
-    write_csv(image_names=imageNames, extracted_text=engineNumbers, filename=file_path)
+    write_csv(
+        image_names=imageNames, extracted_text=engineNumbers, filename=file_path_engine
+    )
 
 
 def get_images(folder_path):
