@@ -1,7 +1,10 @@
 import base64
 import vertexai
 import os
+import csv
 from vertexai.generative_models import GenerativeModel, Part, SafetySetting
+
+response_schema = {"type": "STRING"}
 
 
 def encode_images(folder_path):
@@ -15,6 +18,7 @@ def encode_images(folder_path):
         list: List of base64 encoded image strings.
     """
     encoded_images = []
+    filenames = []
     for filename in os.listdir(folder_path):
         if filename.endswith((".jpg", ".jpeg", ".png", ".gif", ".bmp", ".tiff")):
             image_path = os.path.join(folder_path, filename)
@@ -22,28 +26,36 @@ def encode_images(folder_path):
                 image_data = image_file.read()
                 encoded_image = base64.b64encode(image_data).decode("utf-8")
                 encoded_images.append(encoded_image)
-    return encoded_images
+                filenames.append(filename)
+    return filenames, encoded_images
 
 
-def generate(encoded_images):
+def generate(encoded_images, filenames):
     vertexai.init(project="the-bird-427712-q7", location="us-central1")
     model = GenerativeModel(
         "gemini-1.5-flash-001",
     )
-    for encoded_image in encoded_images:
-        image1 = Part.from_data(
-            mime_type="image/jpeg",
-            data=base64.b64decode(encoded_image),
-        )
-        responses = model.generate_content(
-            [image1, """Extract Text from this image"""],
-            generation_config=generation_config,
-            safety_settings=safety_settings,
-            stream=True,
-        )
 
-        for response in responses:
-            print(response.text, end="")
+    with open("image_text_extraction.csv", "w", newline="") as csvfile:
+        writer = csv.writer(csvfile)
+        writer.writerow(["Image_Name", "Engine_Number"])  # Header row
+        for filename, encoded_image in zip(filenames, encoded_images):
+            image1 = Part.from_data(
+                mime_type="image/jpeg",
+                data=base64.b64decode(encoded_image),
+            )
+            responses = model.generate_content(
+                [image1, """Extract Text from this image"""],
+                generation_config=generation_config,
+                safety_settings=safety_settings,
+                stream=False,
+            )
+            print(responses, end="")
+            writer.writerow([filename, responses])
+
+            # for response in responses:
+            #     print(response.text, end="")
+            #     writer.writerow([filename, response.text])
 
 
 # image_path = "/home/amadgakkhar/code/MultimodalRAG_VertexAI/Images/1.jpeg"
@@ -79,5 +91,5 @@ safety_settings = [
 ]
 
 folder_path = "/home/amadgakkhar/code/MultimodalRAG_VertexAI/Images"
-encoded_images = encode_images(folder_path=folder_path)
-generate(encoded_images=encoded_images)
+filenames, encoded_images = encode_images(folder_path=folder_path)
+generate(encoded_images=encoded_images, filenames=filenames)

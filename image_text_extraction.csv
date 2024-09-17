@@ -1,0 +1,221 @@
+Image_Name,Engine_Number
+6.jpeg,"candidates {
+  content {
+    role: ""model""
+    parts {
+      text: ""CN99 002V574285K""
+    }
+  }
+  finish_reason: STOP
+  safety_ratings {
+    category: HARM_CATEGORY_HATE_SPEECH
+    probability: NEGLIGIBLE
+    probability_score: 0.052734375
+    severity: HARM_SEVERITY_NEGLIGIBLE
+    severity_score: 0.120117188
+  }
+  safety_ratings {
+    category: HARM_CATEGORY_DANGEROUS_CONTENT
+    probability: LOW
+    probability_score: 0.44921875
+    severity: HARM_SEVERITY_LOW
+    severity_score: 0.243164062
+  }
+  safety_ratings {
+    category: HARM_CATEGORY_HARASSMENT
+    probability: NEGLIGIBLE
+    probability_score: 0.0559082031
+    severity: HARM_SEVERITY_NEGLIGIBLE
+    severity_score: 0.143554688
+  }
+  safety_ratings {
+    category: HARM_CATEGORY_SEXUALLY_EXPLICIT
+    probability: HIGH
+    probability_score: 0.73046875
+    severity: HARM_SEVERITY_NEGLIGIBLE
+    severity_score: 0.0942382812
+  }
+  avg_logprobs: -0.0088396926720937085
+}
+usage_metadata {
+  prompt_token_count: 263
+  candidates_token_count: 15
+  total_token_count: 278
+}
+"
+3.jpeg,"candidates {
+  content {
+    role: ""model""
+    parts {
+      text: ""LM19570VS 0817K\nTC24043007634""
+    }
+  }
+  finish_reason: STOP
+  safety_ratings {
+    category: HARM_CATEGORY_HATE_SPEECH
+    probability: NEGLIGIBLE
+    probability_score: 0.0510253906
+    severity: HARM_SEVERITY_NEGLIGIBLE
+    severity_score: 0.141601562
+  }
+  safety_ratings {
+    category: HARM_CATEGORY_DANGEROUS_CONTENT
+    probability: LOW
+    probability_score: 0.478515625
+    severity: HARM_SEVERITY_LOW
+    severity_score: 0.291015625
+  }
+  safety_ratings {
+    category: HARM_CATEGORY_HARASSMENT
+    probability: NEGLIGIBLE
+    probability_score: 0.0306396484
+    severity: HARM_SEVERITY_NEGLIGIBLE
+    severity_score: 0.111328125
+  }
+  safety_ratings {
+    category: HARM_CATEGORY_SEXUALLY_EXPLICIT
+    probability: LOW
+    probability_score: 0.53125
+    severity: HARM_SEVERITY_NEGLIGIBLE
+    severity_score: 0.0419921875
+  }
+  avg_logprobs: -0.2107841968536377
+}
+usage_metadata {
+  prompt_token_count: 263
+  candidates_token_count: 26
+  total_token_count: 289
+}
+"
+5.jpeg,"candidates {
+  content {
+    role: ""model""
+    parts {
+      text: ""LM9570VS 081ZK\nTC24043007634""
+    }
+  }
+  finish_reason: STOP
+  safety_ratings {
+    category: HARM_CATEGORY_HATE_SPEECH
+    probability: NEGLIGIBLE
+    probability_score: 0.0617675781
+    severity: HARM_SEVERITY_NEGLIGIBLE
+    severity_score: 0.13671875
+  }
+  safety_ratings {
+    category: HARM_CATEGORY_DANGEROUS_CONTENT
+    probability: LOW
+    probability_score: 0.59375
+    severity: HARM_SEVERITY_LOW
+    severity_score: 0.3046875
+  }
+  safety_ratings {
+    category: HARM_CATEGORY_HARASSMENT
+    probability: NEGLIGIBLE
+    probability_score: 0.0439453125
+    severity: HARM_SEVERITY_NEGLIGIBLE
+    severity_score: 0.125
+  }
+  safety_ratings {
+    category: HARM_CATEGORY_SEXUALLY_EXPLICIT
+    probability: MEDIUM
+    probability_score: 0.69921875
+    severity: HARM_SEVERITY_NEGLIGIBLE
+    severity_score: 0.0583496094
+  }
+  avg_logprobs: -0.18269960085550943
+}
+usage_metadata {
+  prompt_token_count: 263
+  candidates_token_count: 24
+  total_token_count: 287
+}
+"
+2.jpeg,"candidates {
+  content {
+    role: ""model""
+    parts {
+      text: ""CN99 002V574285K""
+    }
+  }
+  finish_reason: STOP
+  safety_ratings {
+    category: HARM_CATEGORY_HATE_SPEECH
+    probability: NEGLIGIBLE
+    probability_score: 0.052734375
+    severity: HARM_SEVERITY_NEGLIGIBLE
+    severity_score: 0.120117188
+  }
+  safety_ratings {
+    category: HARM_CATEGORY_DANGEROUS_CONTENT
+    probability: LOW
+    probability_score: 0.44921875
+    severity: HARM_SEVERITY_LOW
+    severity_score: 0.243164062
+  }
+  safety_ratings {
+    category: HARM_CATEGORY_HARASSMENT
+    probability: NEGLIGIBLE
+    probability_score: 0.0559082031
+    severity: HARM_SEVERITY_NEGLIGIBLE
+    severity_score: 0.143554688
+  }
+  safety_ratings {
+    category: HARM_CATEGORY_SEXUALLY_EXPLICIT
+    probability: HIGH
+    probability_score: 0.73046875
+    severity: HARM_SEVERITY_NEGLIGIBLE
+    severity_score: 0.0942382812
+  }
+  avg_logprobs: -0.0077885369459788
+}
+usage_metadata {
+  prompt_token_count: 263
+  candidates_token_count: 15
+  total_token_count: 278
+}
+"
+4.jpeg,"candidates {
+  content {
+    role: ""model""
+    parts {
+      text: ""LM19570VS 0817K\nTC24043007634""
+    }
+  }
+  finish_reason: STOP
+  safety_ratings {
+    category: HARM_CATEGORY_HATE_SPEECH
+    probability: NEGLIGIBLE
+    probability_score: 0.0510253906
+    severity: HARM_SEVERITY_NEGLIGIBLE
+    severity_score: 0.141601562
+  }
+  safety_ratings {
+    category: HARM_CATEGORY_DANGEROUS_CONTENT
+    probability: LOW
+    probability_score: 0.478515625
+    severity: HARM_SEVERITY_LOW
+    severity_score: 0.291015625
+  }
+  safety_ratings {
+    category: HARM_CATEGORY_HARASSMENT
+    probability: NEGLIGIBLE
+    probability_score: 0.0306396484
+    severity: HARM_SEVERITY_NEGLIGIBLE
+    severity_score: 0.111328125
+  }
+  safety_ratings {
+    category: HARM_CATEGORY_SEXUALLY_EXPLICIT
+    probability: LOW
+    probability_score: 0.53125
+    severity: HARM_SEVERITY_NEGLIGIBLE
+    severity_score: 0.0419921875
+  }
+  avg_logprobs: -0.1285164447931143
+}
+usage_metadata {
+  prompt_token_count: 263
+  candidates_token_count: 26
+  total_token_count: 289
+}
+"
