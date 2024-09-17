@@ -1,95 +1,57 @@
-import base64
-import vertexai
+import PIL.Image
 import os
 import csv
-from vertexai.generative_models import GenerativeModel, Part, SafetySetting
+import google.generativeai as genai
+import os
+from dotenv import load_dotenv
 
-response_schema = {"type": "STRING"}
+load_dotenv()
 
 
-def encode_images(folder_path):
-    """
-    Encode images in a folder and append to a list.
+def get_engine_numbers(images, image_names):
+    engineNumbers = []
+    imageNames = []
+    genai.configure(api_key=os.environ["GEMINI_API_KEY"])
 
-    Args:
-        folder_path (str): Path to the folder containing images.
+    model = genai.GenerativeModel("gemini-1.5-flash")
+    prompt = """
+        
+        The image is a close up of an engine. Please extract the engine number from it. 
+        Your output should only be the extracted engine number and nothing else.        
+        """
+    for image_name, image in zip(image_names, images):
+        response = model.generate_content([prompt, image])
+        engineNumbers.append(response.text.strip())
+        imageNames.append(image_name)
+        # print(engineNumbers)
+    write_csv(image_names=imageNames, extracted_text=engineNumbers, filename=file_path)
 
-    Returns:
-        list: List of base64 encoded image strings.
-    """
-    encoded_images = []
-    filenames = []
+
+def get_images(folder_path):
+
+    images = []
+    image_names = []
     for filename in os.listdir(folder_path):
         if filename.endswith((".jpg", ".jpeg", ".png", ".gif", ".bmp", ".tiff")):
             image_path = os.path.join(folder_path, filename)
-            with open(image_path, "rb") as image_file:
-                image_data = image_file.read()
-                encoded_image = base64.b64encode(image_data).decode("utf-8")
-                encoded_images.append(encoded_image)
-                filenames.append(filename)
-    return filenames, encoded_images
+            image = PIL.Image.open(image_path)
+            images.append(image)
+            image_names.append(filename)
+    return image_names, images
 
 
-def generate(encoded_images, filenames):
-    vertexai.init(project="the-bird-427712-q7", location="us-central1")
-    model = GenerativeModel(
-        "gemini-1.5-flash-001",
-    )
+def write_csv(image_names, extracted_text, filename):
+    with open(filename, "w", newline="") as csvfile:
+        fieldnames = ["image_Name", "engine_Number"]
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
-    with open("image_text_extraction.csv", "w", newline="") as csvfile:
-        writer = csv.writer(csvfile)
-        writer.writerow(["Image_Name", "Engine_Number"])  # Header row
-        for filename, encoded_image in zip(filenames, encoded_images):
-            image1 = Part.from_data(
-                mime_type="image/jpeg",
-                data=base64.b64decode(encoded_image),
-            )
-            responses = model.generate_content(
-                [image1, """Extract Text from this image"""],
-                generation_config=generation_config,
-                safety_settings=safety_settings,
-                stream=False,
-            )
-            print(responses, end="")
-            writer.writerow([filename, responses])
+        writer.writeheader()
+        for image_name, text in zip(image_names, extracted_text):
+            writer.writerow({"image_Name": image_name, "engine_Number": text})
 
-            # for response in responses:
-            #     print(response.text, end="")
-            #     writer.writerow([filename, response.text])
-
-
-# image_path = "/home/amadgakkhar/code/MultimodalRAG_VertexAI/Images/1.jpeg"
-
-# with open(image_path, "rb") as image_file:
-#     image_data = image_file.read()
-#     encoded_image = base64.b64encode(image_data).decode("utf-8")
-
-
-generation_config = {
-    "max_output_tokens": 8192,
-    "temperature": 1,
-    "top_p": 0.95,
-}
-
-safety_settings = [
-    SafetySetting(
-        category=SafetySetting.HarmCategory.HARM_CATEGORY_HATE_SPEECH,
-        threshold=SafetySetting.HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
-    ),
-    SafetySetting(
-        category=SafetySetting.HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
-        threshold=SafetySetting.HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
-    ),
-    SafetySetting(
-        category=SafetySetting.HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
-        threshold=SafetySetting.HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
-    ),
-    SafetySetting(
-        category=SafetySetting.HarmCategory.HARM_CATEGORY_HARASSMENT,
-        threshold=SafetySetting.HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
-    ),
-]
 
 folder_path = "/home/amadgakkhar/code/MultimodalRAG_VertexAI/Images"
-filenames, encoded_images = encode_images(folder_path=folder_path)
-generate(encoded_images=encoded_images, filenames=filenames)
+file_path = "/home/amadgakkhar/code/MultimodalRAG_VertexAI/image_text_extraction.csv"
+
+image_names, images = get_images(folder_path=folder_path)
+get_engine_numbers(image_names=image_names, images=images)
